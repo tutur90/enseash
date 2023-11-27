@@ -1,17 +1,11 @@
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <wait.h>
-
+#include "exeCommand.h"
 
 #define BUFFER_SIZE 1024
 #define WELCOME_MESSAGE "Bienvenue dans le Shell ENSEA.\nPour quitter, tapez 'exit'.\n"
 #define EXIT_MESSAGE "Bye bye ...\n"
 #define PROMPT "enseash %"
 
-int exeCommand(char *command, ssize_t command_size);
+
 
 int main() {
 
@@ -23,6 +17,11 @@ int main() {
         int command_size = read(0, buffer, BUFFER_SIZE);
         buffer[command_size - 1] = '\0';
 
+        if (strcmp(buffer, "exit") == 0) {
+            write(1, EXIT_MESSAGE, strlen(EXIT_MESSAGE));
+            break;
+        }
+
         int response = exeCommand(buffer, command_size);
         if (response == -1) {
             write(1, "Commande introuvable.\n", strlen("Commande introuvable.\n"));
@@ -32,18 +31,3 @@ int main() {
     return 0;
 }
 
-int exeCommand(char *command, ssize_t command_size) {
-    int pid = fork();
-    int status;
-
-    if (pid == 0) {
-        // Child process
-        execlp(command, command, NULL);
-        exit(EXIT_SUCCESS);
-
-    } else {
-        // Parent process
-        wait(NULL);
-    }
-    return 0;
-}
