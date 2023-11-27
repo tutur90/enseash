@@ -1,23 +1,14 @@
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 #define BUFFER_SIZE 1024
+#define FILE_DESCRIPTION 0
+
 
 int main() {
     char buffer[BUFFER_SIZE]="Bienvenue dans le Shell ENSEA.\nPour quitter, tapez 'exit'.\nenseash %";
-    write(1, buffer, strlen(buffer));
-//    while(1) {
-//        char buffer[BUFFER_SIZE];
-//        int n = read(0, buffer, BUFFER_SIZE);
-//        if (n == 0) {
-//            break;
-//        }
-//        if (buffer =='exit') {
-//            printf("Au revoir !\n");
-//            break;
-//        }
-//        write(1, buffer, n);
-//
-//    }
+    write(FILE_DESCRIPTION, buffer, strlen(buffer));
+
     return 0;
 }
