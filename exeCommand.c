@@ -7,18 +7,35 @@
 
 #include "exeCommand.h"
 
-int exeCommand(char *command, ssize_t command_size) {
-    int pid = fork();
+char prompt[PROMPT_SIZE];
+
+// Function to execute a command
+void exeCommand(char *cmd) {
+    pid_t pid;
     int status;
 
-    if (pid == 0) {
-        // Child process
-        execlp(command, command, NULL);
-        exit(EXIT_SUCCESS);
+    pid = fork(); // Fork a new process
 
-    } else {
-        // Parent process
-        wait(NULL);
+    if (pid == -1) {
+        perror("Fork error \n");
+        exit(EXIT_FAILURE);
     }
-    return 0;
+
+    if (pid != 0) { // Parent process
+        wait(&status); // Wait for the child process to finish
+
+        if (WIFEXITED(status)) {
+            // Child process terminated normally
+            sprintf(prompt, "enseash [exit:%d] %% ", WEXITSTATUS(status));
+        } else if (WIFSIGNALED(status)) {
+            // Child process terminated by a signal
+            sprintf(prompt, "enseash [sig:%d] %% ", WTERMSIG(status));
+        }
+        write(STDOUT_FILENO, prompt, strlen(prompt));
+
+    } else { // Child process
+        execlp(cmd, cmd, NULL); // Execute the command
+        perror("Command not found \n");
+        exit(EXIT_FAILURE);
+    }
 }

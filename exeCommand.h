@@ -5,4 +5,11 @@
 #include <sys/types.h>
 #include <wait.h>
 
-int exeCommand(char *command, ssize_t command_size);
+#define BUFFER_SIZE 1024
+#define PROMPT_SIZE 64
+#define WELCOME_MESSAGE "Bienvenue dans le Shell ENSEA.\nPour quitter, tapez 'exit'.\n"
+#define EXIT_MESSAGE "Bye bye ...\n"
+#define PROMPT "enseash % "
+#define ERR_COMMAND_MSG "Command not found. \n"
+
+void exeCommand(char *command);
