@@ -1,23 +1,23 @@
-#include "exeCommand.h"
+#include "main.h"
+
 
 
 
 int main() {
+
     char buffer[BUFFER_SIZE];
-    char prompt[PROMPT_SIZE] = PROMPT;
-   
-    write(1, WELCOME_MESSAGE, strlen(WELCOME_MESSAGE)); // Print welcome message
+    char *argv[10]; // Command-line arguments
 
-    write(1, PROMPT, strlen(PROMPT)); // Print the initial prompt
+    write(1, WELCOME_MESSAGE, strlen(WELCOME_MESSAGE));
+    write(1, PROMPT, strlen(PROMPT));
+
     while(1) {
-        int command_size = read(0, buffer, BUFFER_SIZE); // Read user input
-        buffer[command_size - 1] = '\0'; // Replace newline character with null terminator
-
-        if (strcmp(buffer,"exit") == 0 || command_size == 0){
-            write(1, EXIT_MESSAGE, strlen(EXIT_MESSAGE)); // Print exit message
+        getCommand(buffer, argv); // Read and parse user input
+        if (strcmp(buffer,"exit") == 0){
+            write(1, EXIT_MESSAGE, strlen(EXIT_MESSAGE));
             break;
         }
-        exeCommand(buffer); // Execute the command
+        exeCommand(buffer, argv); // Execute the command
     }
     exit(EXIT_SUCCESS);
 }
