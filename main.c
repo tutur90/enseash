@@ -13,7 +13,7 @@ int main() {
 
     while(1) {
         getCommand(buffer, argv); // Read and parse user input
-        if (strcmp(buffer,"exit") == 0){
+        if (strcmp(buffer,"exit") == 0 ){
             write(1, EXIT_MESSAGE, strlen(EXIT_MESSAGE));
             break;
         }
