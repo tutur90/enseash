@@ -5,7 +5,6 @@ char prompt[PROMPT_SIZE];
 struct timespec start, stop;
 double timer;
 
-// Function to execute a command with timing information
 void exeCommand(char *cmd, char* args[]) {
     pid_t pid;
     int status;
@@ -20,8 +19,8 @@ void exeCommand(char *cmd, char* args[]) {
         exit(EXIT_FAILURE);
     }
 
-    if (pid != 0) {
-        wait(&status);
+    if (pid != 0) { // Parent process
+        wait(&status); // Wait for the child process to finish
 
         // Stop timer
         clock_gettime(CLOCK_MONOTONIC, &stop);
@@ -36,10 +35,11 @@ void exeCommand(char *cmd, char* args[]) {
         }
         write(STDOUT_FILENO, prompt, strlen(prompt));
 
-    } else {
-        execlp(cmd, cmd, args, NULL);
-
-        perror("Command not found \n");
-        exit(EXIT_FAILURE);
+    } else { // Child process
+        if (execlp(cmd, cmd, args[1], args[2]) == -1) // Execute the command
+        {
+            perror(ERR_COMMAND_MSG);
+            exit(EXIT_FAILURE);
+        }
     }
 }
