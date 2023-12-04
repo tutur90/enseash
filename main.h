@@ -12,8 +12,11 @@
 #define WELCOME_MESSAGE "Bienvenue dans le Shell ENSEA.\nPour quitter, tapez 'exit'.\n"
 #define EXIT_MESSAGE "Bye bye ...\n"
 #define PROMPT "enseash % "
-#define ERR_COMMAND_MSG "Command not found. \n"
+#define ERR_COMMAND_MSG "Command not found! \n"
+#define ERR_FORK_MSG "Fork error. \n"
+#define ARG_MAX 10
 
 void exeCommand(char *command, char *args[]);
-void getCommand(char *buffer, char *argv[]);
+int getCommand(char *buffer, char *argv[]);
+
 
