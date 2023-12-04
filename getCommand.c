@@ -7,7 +7,7 @@ int getCommand(char *buffer, char *argv[]) {
 
     int argc = 0;
     char *token = strtok(buffer, " ");
-    while (token != NULL && argc < 10) {
+    while (token != NULL && argc < ARG_MAX) {
         argv[argc++] = token;
         token = strtok(NULL, " ");
     }

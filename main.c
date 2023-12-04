@@ -6,7 +6,7 @@
 int main() {
 
     char buffer[BUFFER_SIZE];
-    char *argv[10]; // Command-line arguments
+    char *argv[ARG_MAX]; // Command-line arguments
 
     write(1, WELCOME_MESSAGE, strlen(WELCOME_MESSAGE));
     write(1, PROMPT, strlen(PROMPT));
