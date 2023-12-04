@@ -2,6 +2,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <fcntl.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/signal.h>
@@ -18,5 +19,6 @@
 
 void exeCommand(char *command, char *args[]);
 int getCommand(char *buffer, char *argv[]);
+void redirections(char *command, char *args[]);
 
 

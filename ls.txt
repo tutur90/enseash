@@ -1,0 +1,9 @@
+enseash
+exeCommand.c
+getCommand.c
+img
+ls.txt
+main.c
+main.h
+README.md
+redirections.c

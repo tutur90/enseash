@@ -38,10 +38,8 @@ void exeCommand(char *cmd, char* args[]) {
         write(STDOUT_FILENO, prompt, strlen(prompt));
 
     } else { // Child process
-    if (execvp(cmd,  args) == -1) // Execute the command
-        {
-            write(STDOUT_FILENO, ERR_COMMAND_MSG, strlen(ERR_COMMAND_MSG));         
-            exit(EXIT_FAILURE);
-        }
+
+        redirections(cmd, args);
+
     }
 }
