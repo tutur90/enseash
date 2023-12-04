@@ -1,14 +1,23 @@
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
+#include "main.h"
 
-#define BUFFER_SIZE 1024
-#define FILE_DESCRIPTION 0
+
 
 
 int main() {
-    char buffer[BUFFER_SIZE]="Bienvenue dans le Shell ENSEA.\nPour quitter, tapez 'exit'.\nenseash %";
-    write(FILE_DESCRIPTION, buffer, strlen(buffer));
 
-    return 0;
+    char buffer[BUFFER_SIZE];
+    char *argv[10]; // Command-line arguments
+
+    write(1, WELCOME_MESSAGE, strlen(WELCOME_MESSAGE));
+    write(1, PROMPT, strlen(PROMPT));
+
+    while(1) {
+        int command_size = getCommand(buffer, argv); // Read and parse user input
+        if (strcmp(buffer,"exit") == 0 || command_size == 0){
+            write(1, EXIT_MESSAGE, strlen(EXIT_MESSAGE));
+            break;
+        }
+        exeCommand(buffer, argv); // Execute the command
+    }
+    exit(EXIT_SUCCESS);
 }

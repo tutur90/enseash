@@ -23,6 +23,7 @@ void exeCommand(char *cmd, char* args[]) {
 
         // Stop timer
         clock_gettime(CLOCK_MONOTONIC, &stop);
+
         timer = (stop.tv_sec - start.tv_sec) * 1000000.0 + (stop.tv_nsec - start.tv_nsec) / 1000.0;
 
         if (WIFEXITED(status)) {
